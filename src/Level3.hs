@@ -3,6 +3,7 @@ module Level3 where
 
 import GHC.Exts (RuntimeRep, TYPE)
 import MetaUtils (todo)
+import GHC.Base (Void)
 
 
 -- 3.1. Тип error
@@ -12,5 +13,7 @@ import MetaUtils (todo)
 -- сигнатура не нарушает запрет на связыватели, полиморфные по представлению, и зачем
 -- error вообще полиморфна по представлению.
 
-error' :: String -> a -- Заглушка: сигнатуру нужно поправить.
-error' = todo "3.1"
+-- Потому что на самом деле никакого значения, которое бы имело произвольное
+-- представление в рантайме, тут нет
+error' :: forall (k :: RuntimeRep) (t :: TYPE k). String -> t
+error' = error
